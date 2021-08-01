@@ -1,5 +1,5 @@
 class RailsAnonymousControllerTesting::Railtie < ::Rails::Railtie
-  initializer "rails_anonymous_controller_testing" do
+  config.before_initialize do
     ActiveSupport.on_load(:action_dispatch_integration_test) do
       ANONYMOUS_PATH_MUTEX = Mutex.new
 
