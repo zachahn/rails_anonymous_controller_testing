@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2021-08-02
+
 ### Fixed
 
 * Ensures that the `ActiveSupport.on_load(:action_dispatch_integration_test)`
@@ -22,5 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Ability to customize the route
 
 
-[Unreleased]: https://github.com/zachahn/rails_anonymous_controller_testing/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/zachahn/rails_anonymous_controller_testing/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/zachahn/rails_anonymous_controller_testing/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/zachahn/rails_anonymous_controller_testing/compare/v0.0.0...v0.0.1
