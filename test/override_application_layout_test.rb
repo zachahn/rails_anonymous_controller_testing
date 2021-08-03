@@ -21,4 +21,11 @@ class OverrideApplicationLayoutTest < ActionDispatch::IntegrationTest
     assert_select "h1", "Overridden application layout"
     assert_select "h2", "Anonymous home page"
   end
+
+  test "GET /articles loads and renders the original layout" do
+    get "/articles"
+    assert_response 200
+    assert_not_includes response.body, "Overridden application layout"
+    assert_includes response.body, "@jack"
+  end
 end

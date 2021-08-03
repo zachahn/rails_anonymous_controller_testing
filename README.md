@@ -65,16 +65,12 @@ end
 
 ### Views
 
-A few things to note about views:
+One thing to note about views:
 
 * Views are generated only once and cached. This is determined by the MD5 hash
   of the test **file** you defined the **controller**. You can disable caching
   by calling `disable_anonymous_view_cache!` in your Rails test. The view cache
   is located in `tmp/anonymous_controller_views`.
-* If you override the layout for your anonymous controller, you'll also override
-  the layout for your other controllers. This is because this library uses
-  `prepend_view_path`, so the views defined in the test take precedence over the
-  other view directories.
 
 
 ## Installation
