@@ -12,6 +12,9 @@ This only works with Minitest, specifically for tests that inherit from
 
 ## Usage
 
+Here's a relatively straightforward example. There are a few caveats you might
+need to keep in mind for more complicated cases; see the Caveats section below.
+
 ```ruby
 class MyControllerTest < ActionDispatch::IntegrationTest
   # 1. Call the `controller` method. You must specify the base controller to
@@ -25,7 +28,8 @@ class MyControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # 2. Optionally, set views. There are some caveats, see below
+  # 2. Optionally, set views. You can set the layout for your anonymous
+  #    controller too.
   views["layouts/application.html.erb"] = <<~HTML
     <h1>My anonymous test</h1>
     <%= yield %>
@@ -63,14 +67,23 @@ end
 ```
 
 
-### Views
+### Caveats
 
-One thing to note about views:
+A few things to note
 
-* Views are generated only once and cached. This is determined by the MD5 hash
-  of the test **file** you defined the **controller**. You can disable caching
-  by calling `disable_anonymous_view_cache!` in your Rails test. The view cache
-  is located in `tmp/anonymous_controller_views`.
+* You can only define **one** `controller do` per test class. But you can get
+  around this limitation by defining another test class in one file.
+* Views are generated only once and cached. The cache key is determined by MD5
+  hashing the test file contents, and test file path, and the line number of the
+  `controller do`.
+* You can disable the view cache by calling `disable_anonymous_view_cache!` on
+  your test class. This doesn't get around the limitation of having just one
+  `controller do` definition in your test class.
+* The view cache is located in `tmp/anonymous_controller_views` and can be
+  cleared anytime
+* Setting a custom layout will only affect your anonymous controller. This gem
+  does not provide any way to affect the behavior of existing controllers
+  defined by your Rails application or engine
 
 
 ## Installation

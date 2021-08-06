@@ -11,15 +11,6 @@ class RailsAnonymousControllerTesting::Railtie < ::Rails::Railtie
         @_anonymous_view_base_path = value
       end
 
-      def self._anonymous_view_path
-        if instance_variable_defined?(:@_anonymous_view_path)
-          return @_anonymous_view_path
-        end
-
-        caller_path = caller_locations(1, 10).find { |location| location.absolute_path != __FILE__ }.absolute_path
-        @_anonymous_view_path = _anonymous_view_base_path.join(Digest::MD5.file(caller_path).hexdigest)
-      end
-
       def self._anonymous_controller_name
         @_anonymous_controller_name ||= "AnonymousController"
       end
@@ -49,7 +40,26 @@ class RailsAnonymousControllerTesting::Railtie < ::Rails::Railtie
       end
 
       def self.controller(base_controller, routes: nil, &block)
-        anonymous_view_path = _anonymous_view_path
+        caller_location = caller_locations(1, 10).find { |location| location.absolute_path != __FILE__ }
+
+        display_name =
+          if caller_location
+            "#{caller_location.absolute_path.split("/").last.split(".").first}_#{caller_location.lineno}"
+          else
+            "path_unknown"
+          end
+
+        unique_identifier =
+          if caller_location
+            Digest::MD5
+              .file(caller_location.absolute_path)
+              .tap { |d| d << caller_location.absolute_path }
+              .tap { |d| d << caller_location.lineno.to_s }
+          else
+            SecureRandom.hex
+          end
+
+        anonymous_view_path = _anonymous_view_base_path.join("#{display_name}_#{unique_identifier}")
         anonymous_controller_name = _anonymous_controller_name
 
         # Define the controller
