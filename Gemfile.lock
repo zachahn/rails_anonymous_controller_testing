@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     rails_anonymous_controller_testing (0.0.2)
-      rails (>= 5.0.0)
+      actionpack (>= 5.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -145,6 +145,7 @@ PLATFORMS
 
 DEPENDENCIES
   pry
+  rails (>= 5.0.0)
   rails_anonymous_controller_testing!
   sqlite3
 

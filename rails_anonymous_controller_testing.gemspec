@@ -16,8 +16,9 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["lib/**/*.rb", "LICENSE", "README.md"]
 
-  spec.add_dependency "rails", ">= 5.0.0"
+  spec.add_dependency "actionpack", ">= 5.0.0"
 
+  spec.add_development_dependency "rails", ">= 5.0.0"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "pry"
 end
