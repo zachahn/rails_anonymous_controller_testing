@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_anonymous_controller_testing (0.0.2)
+    rails_anonymous_controller_testing (0.0.3)
       actionpack (>= 5.0.0)
 
 GEM
