@@ -15,6 +15,10 @@ class RailsAnonymousControllerTesting::Railtie < ::Rails::Railtie
         @_anonymous_controller_name ||= "AnonymousController"
       end
 
+      def self._anonymous_controller_name=(value)
+        @_anonymous_controller_name = value
+      end
+
       def self._anonymous_view_cache?
         if instance_variable_defined?(:@_anonymous_view_cache)
           @_anonymous_view_cache
@@ -39,7 +43,7 @@ class RailsAnonymousControllerTesting::Railtie < ::Rails::Railtie
         @_anonymous_views = value
       end
 
-      def self.controller(base_controller, routes: nil, &block)
+      def self.controller(base_controller, routes: nil, controller_name: "AnonymousController", &block)
         caller_location = caller_locations(1, 10).find { |location| location.absolute_path != __FILE__ }
 
         display_name =
@@ -60,6 +64,7 @@ class RailsAnonymousControllerTesting::Railtie < ::Rails::Railtie
           end
 
         anonymous_view_path = _anonymous_view_base_path.join("#{display_name}_#{unique_identifier}")
+        self._anonymous_controller_name = controller_name
         anonymous_controller_name = _anonymous_controller_name
 
         # Define the controller
