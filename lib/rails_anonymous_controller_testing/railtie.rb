@@ -76,6 +76,8 @@ class RailsAnonymousControllerTesting::Railtie < ::Rails::Railtie
         const_set(anonymous_controller_name, anonymous_controller_class)
 
         setup do
+          Rails.application.reload_routes!
+
           # Set up the routes
           if !routes
             resource_name = anonymous_controller_class.controller_name.to_sym
@@ -86,7 +88,6 @@ class RailsAnonymousControllerTesting::Railtie < ::Rails::Railtie
             end
           end
 
-          # Rails.application.routes.draw(&routes)
           Rails.application.routes.send(:eval_block, routes)
 
           # Set up the views
