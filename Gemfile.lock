@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_anonymous_controller_testing (0.0.4)
+    rails_anonymous_controller_testing (0.0.5)
       actionpack (>= 5.0.0)
 
 GEM
@@ -150,4 +150,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   2.2.21
+   2.2.27
